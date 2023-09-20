@@ -6,6 +6,9 @@ on:
 jobs:
   run-tests:
     uses: ./.github/workflows/run-tests.yml
+    secrets:
+      # doesn't have to be a secret, but it's generally best practice to keep it hidden
+      AWS_ACCOUNT_ID: ${{ secrets.ARMAKUNI_AWS_PROD_ACCOUNT_ID }}
 
   check-conventional-commits:
     uses: armakuni/github-actions/.github/workflows/check-conventional-commits.yml@v0.4.1
@@ -16,6 +19,4 @@ jobs:
       - check-conventional-commits
     if: github.ref == 'refs/heads/main'
     uses: armakuni/github-actions/.github/workflows/tag-and-release.yml@v0.4.1
-    secrets:
-      # doesn't have to be a secret, but it's generally best practice to keep it hidden
-      AWS_ACCOUNT_ID: ${{ secrets.ARMAKUNI_AWS_PROD_ACCOUNT_ID }}
+    secrets: inherit

@@ -1,8 +1,15 @@
 on:
   workflow_call:
+    secrets:
+      AWS_ACCOUNT_ID:
+        required: true
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
 
 env:
-  go-version: '^1.21.1'
+  go-version: "^1.21.1"
 
 jobs:
   go-fmt:
