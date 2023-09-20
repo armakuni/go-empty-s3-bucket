@@ -2,6 +2,7 @@ package emptys3bucket_test
 
 import (
 	"context"
+	"os"
 	"strings"
 	"testing"
 
@@ -19,12 +20,16 @@ import (
 // - empty bucket with versioning and delete markers
 // - empty bucket with versioning and delete markers and delete all versions
 const awsRegion = "eu-west-1"
+const bucketName = "emptys3bucket-integration-test"
 
-func TestEmptyBucket(t *testing.T) {
-	const bucketName = "emptys3bucket-integration-test"
+var svc *s3.Client
+
+func setup() {
 	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion(awsRegion))
-	require.Nil(t, err, "")
-	svc := s3.NewFromConfig(cfg)
+	if err != nil {
+		panic("could not setup config")
+	}
+	svc = s3.NewFromConfig(cfg)
 
 	_, err = svc.CreateBucket(context.TODO(), &s3.CreateBucketInput{
 		Bucket: aws.String(bucketName),
@@ -33,9 +38,23 @@ func TestEmptyBucket(t *testing.T) {
 		},
 	})
 
-	require.Nil(t, err)
+	if err != nil {
+		panic("could not create bucket")
+	}
+}
 
-	_, err = svc.PutObject(context.TODO(), &s3.PutObjectInput{
+func cleanup() {
+}
+
+func TestMain(m *testing.M) {
+	setup()
+	code := m.Run()
+	cleanup()
+	os.Exit(code)
+}
+
+func TestEmptyBucketWithOneItemAndNoVersioning(t *testing.T) {
+	_, err := svc.PutObject(context.TODO(), &s3.PutObjectInput{
 		Bucket: aws.String(bucketName),
 		Key:    aws.String("index.html"),
 		Body:   strings.NewReader("<h1>Hello World</h1>"),
@@ -47,4 +66,8 @@ func TestEmptyBucket(t *testing.T) {
 	})
 
 	require.Nil(t, err)
+}
+
+func TestEmptyBucketWithTwoItemsAndNoVersioning(t *testing.T) {
+
 }
