@@ -27,32 +27,6 @@ const versionedBucketName = "emptys3bucket-versioned-integration-test"
 
 var s3Client *s3.Client
 
-func createBucket(bucketName string) (func() error, error) {
-	_, err := s3Client.CreateBucket(context.TODO(), &s3.CreateBucketInput{
-		Bucket: aws.String(bucketName),
-		CreateBucketConfiguration: &types.CreateBucketConfiguration{
-			LocationConstraint: types.BucketLocationConstraint(awsRegion),
-		},
-	})
-	if err != nil {
-		return nil, fmt.Errorf("failed to create bucket %s: %s", bucketName, err)
-	}
-
-	return func() error { return deleteBucket(bucketName) }, nil
-}
-
-func deleteBucket(bucketName string) error {
-	_, err := s3Client.DeleteBucket(context.TODO(), &s3.DeleteBucketInput{
-		Bucket: aws.String(bucketName),
-	})
-
-	if err != nil {
-		return fmt.Errorf("failed to delete bucket %s: %s", bucketName, err)
-	}
-
-	return nil
-}
-
 func setup() ([]func() error, error) {
 	var cleanupFunctions []func() error
 
@@ -65,7 +39,7 @@ func setup() ([]func() error, error) {
 	bucketsToCreate := []string{unversionedBucketName, versionedBucketName}
 
 	for _, bucketName := range bucketsToCreate {
-		deleteBucketFunction, err := createBucket(bucketName)
+		deleteBucketFunction, err := createBucket(s3Client, bucketName)
 		if deleteBucketFunction != nil {
 			cleanupFunctions = append(cleanupFunctions, func() error { return deleteBucketFunction() })
 		}
@@ -135,7 +109,7 @@ func TestEmptyBucketWithOneItemAndNoVersioning(t *testing.T) {
 
 	emptys3bucket.EmptyBucket(s3Client, unversionedBucketName)
 
-	assertBucketIsEmpty(t, unversionedBucketName)
+	assertBucketIsEmpty(t, s3Client, unversionedBucketName)
 }
 
 func TestEmptyBucketWithTwoItemsAndNoVersioning(t *testing.T) {
@@ -151,7 +125,7 @@ func TestEmptyBucketWithTwoItemsAndNoVersioning(t *testing.T) {
 
 	emptys3bucket.EmptyBucket(s3Client, unversionedBucketName)
 
-	assertBucketIsEmpty(t, unversionedBucketName)
+	assertBucketIsEmpty(t, s3Client, unversionedBucketName)
 }
 
 func TestEmptyBucketWithVersioningEnabled(t *testing.T) {
@@ -171,20 +145,5 @@ func TestEmptyBucketWithVersioningEnabled(t *testing.T) {
 
 	emptys3bucket.EmptyBucket(s3Client, versionedBucketName)
 
-	assertBucketIsEmpty(t, versionedBucketName)
-}
-
-func assertBucketIsEmpty(t *testing.T, bucketName string) {
-	objects, err := s3Client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
-		Bucket: aws.String(bucketName),
-	})
-	require.Nil(t, err)
-	require.Empty(t, objects.Contents)
-
-	versions, err := s3Client.ListObjectVersions(context.TODO(), &s3.ListObjectVersionsInput{
-		Bucket: aws.String(bucketName),
-	})
-	require.Nil(t, err)
-	require.Empty(t, versions.Versions)
-	require.Empty(t, versions.DeleteMarkers)
+	assertBucketIsEmpty(t, s3Client, versionedBucketName)
 }
