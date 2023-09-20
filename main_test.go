@@ -44,6 +44,13 @@ func setup() {
 }
 
 func cleanup() {
+	_, err := svc.DeleteBucket(context.TODO(), &s3.DeleteBucketInput{
+		Bucket: aws.String(bucketName),
+	})
+
+	if err != nil {
+		panic("could not delete bucket")
+	}
 }
 
 func TestMain(m *testing.M) {
@@ -61,13 +68,32 @@ func TestEmptyBucketWithOneItemAndNoVersioning(t *testing.T) {
 	})
 	require.Nil(t, err)
 	emptys3bucket.EmptyBucket(svc, bucketName)
-	_, err = svc.DeleteBucket(context.TODO(), &s3.DeleteBucketInput{
+
+	objects, err := svc.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
 		Bucket: aws.String(bucketName),
 	})
-
 	require.Nil(t, err)
+
+	require.Equal(t, 0, len(objects.Contents))
 }
 
 func TestEmptyBucketWithTwoItemsAndNoVersioning(t *testing.T) {
+	files := []string{"index.html", "index2.html"}
+	for _, file := range files {
+		_, err := svc.PutObject(context.TODO(), &s3.PutObjectInput{
+			Bucket: aws.String(bucketName),
+			Key:    aws.String(file),
+			Body:   strings.NewReader("<h1>Hello World</h1>"),
+		})
+		require.Nil(t, err)
+	}
 
+	emptys3bucket.EmptyBucket(svc, bucketName)
+
+	objects, err := svc.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
+		Bucket: aws.String(bucketName),
+	})
+	require.Nil(t, err)
+
+	require.Equal(t, 0, len(objects.Contents))
 }
