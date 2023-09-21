@@ -24,6 +24,7 @@ func TestEmptyBucketWithOneItemAndNoVersioning(t *testing.T) {
 	emptys3bucket.EmptyBucket(simpleS3Client.S3Client, testBucketName)
 
 	assertBucketIsEmpty(t, simpleS3Client.S3Client, testBucketName)
+	require.True(t, false)
 }
 
 func TestEmptyBucketWithTwoItemsAndNoVersioning(t *testing.T) {
