@@ -63,13 +63,16 @@ func EmptyBucket(svc *s3.Client, bucketName string) {
 		})
 	}
 
+	if dmIdentifiers == nil {
+		return
+	}
+
 	_, err = svc.DeleteObjects(context.TODO(), &s3.DeleteObjectsInput{
 		Bucket: aws.String(bucketName),
 		Delete: &types.Delete{
 			Objects: dmIdentifiers,
 		},
 	})
-
 	if err != nil {
 		fmt.Println("DeleteObjects failed:" + err.Error())
 	}

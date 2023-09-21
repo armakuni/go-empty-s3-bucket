@@ -35,6 +35,7 @@ func TestEmptyBucketWithTwoItemsAndNoVersioning(t *testing.T) {
 	defer simpleS3Client.DeleteBucket(testBucketName)
 
 	err = simpleS3Client.PutObject(testBucketName, "index.html", "<h1>Hello World</h1>")
+	require.Nil(t, err)
 	err = simpleS3Client.PutObject(testBucketName, "index2.html", "<h1>Hello World</h1>")
 	require.Nil(t, err)
 
@@ -52,6 +53,7 @@ func TestEmptyBucketWithVersioningEnabled(t *testing.T) {
 	defer simpleS3Client.DeleteBucket(testBucketName)
 
 	err = simpleS3Client.PutObject(testBucketName, "index.html", "<h1>Version 1</h1>")
+	require.Nil(t, err)
 	err = simpleS3Client.PutObject(testBucketName, "index.html", "<h1>Version 2</h1>")
 	require.Nil(t, err)
 
