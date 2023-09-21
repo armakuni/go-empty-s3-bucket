@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.1.2](https://github.com/armakuni/go-empty-s3-bucket/compare/v0.1.1..v0.1.2) - 2023-09-21
+#### Bug Fixes
+- don't show error message with unversioned buckets - ([5ab616d](https://github.com/armakuni/go-empty-s3-bucket/commit/5ab616d7f582f2bffcf32a5a027f441785a861b8)) - Ben Nagy
+#### Refactoring
+- clean up code - ([2a0cce9](https://github.com/armakuni/go-empty-s3-bucket/commit/2a0cce93f40cabf53e5d818f7ab30b8d3cf84190)) - Ben Nagy
+
+- - -
+
 ## [v0.1.1](https://github.com/armakuni/go-empty-s3-bucket/compare/v0.1.0..v0.1.1) - 2023-09-21
 #### Bug Fixes
 - Add cog.toml - ([3506761](https://github.com/armakuni/go-empty-s3-bucket/commit/3506761be707eaf24df9fea90d0eab931f546758)) - Tom Oram
