@@ -10,6 +10,15 @@ import (
 )
 
 func EmptyBucket(svc *s3.Client, bucketName string) {
+	deleteAllObjects(svc, bucketName)
+
+	err := removeDanglingDeleteMarkers(svc, bucketName)
+	if err != nil {
+		fmt.Println("Could not remove delete markers:" + err.Error())
+	}
+}
+
+func deleteAllObjects(svc *s3.Client, bucketName string) {
 	var identifiers []types.ObjectIdentifier
 
 	objects, err := svc.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
@@ -17,10 +26,10 @@ func EmptyBucket(svc *s3.Client, bucketName string) {
 	})
 	if err != nil {
 		fmt.Println("ListObjectsV2 failed: " + err.Error())
-	}
-
-	for _, object := range objects.Contents {
-		identifiers = append(identifiers, types.ObjectIdentifier{Key: object.Key})
+	} else {
+		for _, object := range objects.Contents {
+			identifiers = append(identifiers, types.ObjectIdentifier{Key: object.Key})
+		}
 	}
 
 	versions, err := svc.ListObjectVersions(context.TODO(), &s3.ListObjectVersionsInput{
@@ -29,10 +38,10 @@ func EmptyBucket(svc *s3.Client, bucketName string) {
 
 	if err != nil {
 		fmt.Println("ListObjectVersions failed: " + err.Error())
-	}
-
-	for _, version := range versions.Versions {
-		identifiers = append(identifiers, types.ObjectIdentifier{Key: version.Key, VersionId: version.VersionId})
+	} else {
+		for _, version := range versions.Versions {
+			identifiers = append(identifiers, types.ObjectIdentifier{Key: version.Key, VersionId: version.VersionId})
+		}
 	}
 
 	_, err = svc.DeleteObjects(context.TODO(), &s3.DeleteObjectsInput{
@@ -45,14 +54,15 @@ func EmptyBucket(svc *s3.Client, bucketName string) {
 	if err != nil {
 		fmt.Println("DeleteObjects failed:" + err.Error())
 	}
+}
 
-	// Delete Delete Markers
+func removeDanglingDeleteMarkers(svc *s3.Client, bucketName string) error {
 	deleteMarkers, err := svc.ListObjectVersions(context.TODO(), &s3.ListObjectVersionsInput{
 		Bucket: aws.String(bucketName),
 	})
 
 	if err != nil {
-		fmt.Println("ListObjectVersions failed: " + err.Error())
+		return err
 	}
 
 	var dmIdentifiers []types.ObjectIdentifier
@@ -64,7 +74,7 @@ func EmptyBucket(svc *s3.Client, bucketName string) {
 	}
 
 	if dmIdentifiers == nil {
-		return
+		return nil
 	}
 
 	_, err = svc.DeleteObjects(context.TODO(), &s3.DeleteObjectsInput{
@@ -73,7 +83,5 @@ func EmptyBucket(svc *s3.Client, bucketName string) {
 			Objects: dmIdentifiers,
 		},
 	})
-	if err != nil {
-		fmt.Println("DeleteObjects failed:" + err.Error())
-	}
+	return err
 }
