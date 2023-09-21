@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.2.0](https://github.com/armakuni/go-empty-s3-bucket/compare/v0.1.2..v0.2.0) - 2023-09-21
+#### Features
+- add slack notification to pipeline - ([67ecfb0](https://github.com/armakuni/go-empty-s3-bucket/commit/67ecfb0a9a2177a1d571d0e07c46987ebff3ece9)) - Ben Nagy
+
+- - -
+
 ## [v0.1.2](https://github.com/armakuni/go-empty-s3-bucket/compare/v0.1.1..v0.1.2) - 2023-09-21
 #### Bug Fixes
 - don't show error message with unversioned buckets - ([5ab616d](https://github.com/armakuni/go-empty-s3-bucket/commit/5ab616d7f582f2bffcf32a5a027f441785a861b8)) - Ben Nagy
