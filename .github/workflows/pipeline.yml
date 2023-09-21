@@ -33,8 +33,9 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_COLOR: bad
+          SLACK_COLOR: "#ff0000"
           SLACK_ICON: https://github.com/armakuni.png?size=48
           SLACK_USERNAME: GitHub Actions Failed
-          SLACK_MESSAGE: Commit message
+          SLACK_TITLE: Commit message
           MSG_MINIMAL: actions url,commit
+          SLACK_FOOTER: ""
