@@ -11,14 +11,14 @@ jobs:
       AWS_ACCOUNT_ID: ${{ secrets.ARMAKUNI_AWS_PROD_ACCOUNT_ID }}
 
   check-conventional-commits:
-    uses: armakuni/github-actions/.github/workflows/check-conventional-commits.yml@v0.4.1
+    uses: armakuni/github-actions/.github/workflows/check-conventional-commits.yml@v0.10.1
 
   create-release:
     needs:
       - run-tests
       - check-conventional-commits
     if: github.ref == 'refs/heads/main'
-    uses: armakuni/github-actions/.github/workflows/tag-and-release.yml@v0.4.1
+    uses: armakuni/github-actions/.github/workflows/tag-and-release.yml@v0.10.1
     secrets: inherit
 
   slack-notify:
