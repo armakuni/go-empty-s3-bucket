@@ -13,9 +13,13 @@ jobs:
   check-conventional-commits:
     uses: armakuni/github-actions/.github/workflows/check-conventional-commits.yml@v0.10.1
 
+  lint-pipeline:
+    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@v0.10.4
+
   create-release:
     needs:
       - run-tests
+      - lint-pipeline
       - check-conventional-commits
     if: github.ref == 'refs/heads/main'
     uses: armakuni/github-actions/.github/workflows/tag-and-release.yml@v0.10.1
