@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.2.2](https://github.com/armakuni/go-empty-s3-bucket/compare/v0.2.1..v0.2.2) - 2023-09-26
+#### Bug Fixes
+- **(deps)** bump github.com/aws/aws-sdk-go-v2/service/s3 - ([393e6bb](https://github.com/armakuni/go-empty-s3-bucket/commit/393e6bb31038cff1695de86a8e91ac97b54b30d1)) - dependabot[bot]
+#### Continuous Integration
+- **(deps)** bump armakuni/github-actions from 0.10.1 to 0.10.4 - ([59a4e60](https://github.com/armakuni/go-empty-s3-bucket/commit/59a4e60730fab1a1612ce79e35db0e675d5f78ef)) - dependabot[bot]
+- Add concurrency restriction to tests - ([e339328](https://github.com/armakuni/go-empty-s3-bucket/commit/e33932852372399912ef0951b2ecd2d42933a628)) - Tom Oram
+- Lint pipeline - ([ee6bcb4](https://github.com/armakuni/go-empty-s3-bucket/commit/ee6bcb4b2a6a5a742b09a7fa6dbdfb6a5d2682bc)) - Billie Thompson
+
+- - -
+
 ## [v0.2.1](https://github.com/armakuni/go-empty-s3-bucket/compare/v0.2.0..v0.2.1) - 2023-09-26
 #### Bug Fixes
 - **(deps)** bump github.com/aws/aws-sdk-go-v2/config - ([dc809c2](https://github.com/armakuni/go-empty-s3-bucket/commit/dc809c27451064006cf847c7f2e3fc0f009421ea)) - dependabot[bot]
