@@ -2,6 +2,23 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.2.1](https://github.com/armakuni/go-empty-s3-bucket/compare/v0.2.0..v0.2.1) - 2023-09-26
+#### Bug Fixes
+- **(deps)** bump github.com/aws/aws-sdk-go-v2/config - ([dc809c2](https://github.com/armakuni/go-empty-s3-bucket/commit/dc809c27451064006cf847c7f2e3fc0f009421ea)) - dependabot[bot]
+#### Continuous Integration
+- **(deps)** bump aws-actions/configure-aws-credentials from 3 to 4 - ([b4431dc](https://github.com/armakuni/go-empty-s3-bucket/commit/b4431dc522c9919e03ec7254166f7fd05bd2df63)) - dependabot[bot]
+- **(deps)** bump armakuni/github-actions from 0.4.1 to 0.10.1 - ([841f8a3](https://github.com/armakuni/go-empty-s3-bucket/commit/841f8a32ec227372a06f87520fa7be88074e4582)) - dependabot[bot]
+- **(deps)** bump actions/checkout from 2 to 4 - ([8437f81](https://github.com/armakuni/go-empty-s3-bucket/commit/8437f81abf555f375ff6314709bbec7cab4051e6)) - dependabot[bot]
+- Don't run tests on branches (they require AWS access) - ([3f63573](https://github.com/armakuni/go-empty-s3-bucket/commit/3f63573734c6cb98f9ae1fd5c8ee41e3024c7517)) - Tom Oram
+- Add mergify - ([9731d20](https://github.com/armakuni/go-empty-s3-bucket/commit/9731d2086196425d9da6dfe786d19c4c98fa9232)) - Tom Oram
+- Add dependabot config - ([f52a162](https://github.com/armakuni/go-empty-s3-bucket/commit/f52a162d380dea6579e86e2f74f2f9b44c885e87)) - Tom Oram
+- make test pass - ([b293e78](https://github.com/armakuni/go-empty-s3-bucket/commit/b293e7804fd1742ac2dc4bda3cb55e56931c7cd3)) - Ben Nagy
+- update slack notification - ([bca1b38](https://github.com/armakuni/go-empty-s3-bucket/commit/bca1b383a3da79e3f8b76134cd4ca2236f2cf8c8)) - Ben Nagy
+- update slack notification - ([db0c534](https://github.com/armakuni/go-empty-s3-bucket/commit/db0c534b4bc006a7585ee3a97431c8fd95f57ff2)) - Ben Nagy
+- test slack notification - ([06bebfd](https://github.com/armakuni/go-empty-s3-bucket/commit/06bebfd903c3198328fef000682c665d3f83a498)) - Ben Nagy
+
+- - -
+
 ## [v0.2.0](https://github.com/armakuni/go-empty-s3-bucket/compare/v0.1.2..v0.2.0) - 2023-09-21
 #### Features
 - add slack notification to pipeline - ([67ecfb0](https://github.com/armakuni/go-empty-s3-bucket/commit/67ecfb0a9a2177a1d571d0e07c46987ebff3ece9)) - Ben Nagy
