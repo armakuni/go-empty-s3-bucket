@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.2.20](https://github.com/armakuni/go-empty-s3-bucket/compare/v0.2.19..v0.2.20) - 2023-11-10
+#### Bug Fixes
+- **(deps)** bump github.com/aws/aws-sdk-go-v2/config - ([e5ca018](https://github.com/armakuni/go-empty-s3-bucket/commit/e5ca018920f19b46f7c50c61a5ed658035b9ca20)) - dependabot[bot]
+
+- - -
+
 ## [v0.2.19](https://github.com/armakuni/go-empty-s3-bucket/compare/v0.2.18..v0.2.19) - 2023-11-09
 #### Bug Fixes
 - **(deps)** bump github.com/aws/aws-sdk-go-v2/config - ([bc56cf6](https://github.com/armakuni/go-empty-s3-bucket/commit/bc56cf6d8ff06d804792333e3a2c134401358e4e)) - dependabot[bot]
