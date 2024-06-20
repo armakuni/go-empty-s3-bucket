@@ -3,7 +3,7 @@ module github.com/armakuni/go-empty-s3-bucket
 go 1.20
 
 require (
-	github.com/aws/aws-sdk-go-v2 v1.29.0
+	github.com/aws/aws-sdk-go-v2 v1.30.0
 	github.com/aws/aws-sdk-go-v2/config v1.27.20
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.56.0
 	github.com/stretchr/testify v1.9.0
