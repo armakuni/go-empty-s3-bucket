@@ -14,7 +14,7 @@ jobs:
     uses: armakuni/github-actions/.github/workflows/check-conventional-commits.yml@v0.19.6
 
   lint-pipeline:
-    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@v0.19.6
+    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@v0.19.10
 
   create-release:
     needs:
